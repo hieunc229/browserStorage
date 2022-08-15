@@ -45,13 +45,13 @@ export class LocalStorage {
         localStorage.setItem(`${this.path}/${path}`, Codec.ab2str(new Uint8Array(bytes)));
     }
 
-    getEncrypt<T>(path: string): T | undefined {
+    getEncrypt<T>(path: string, defaultValue?: T): T | undefined {
         let str = localStorage.getItem(`${this.path}/${path}`);
         if (str) {
             let buff = Codec.str2ab(str);
             return Codec.decode(buff);
         }
-        return undefined;
+        return defaultValue || undefined;
     }
 
     remove(path: string) {
